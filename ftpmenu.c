@@ -20,7 +20,6 @@
 #define CMD_MAX_LENS     50
 
 int showlist();
-
 typedef struct DataNode
 {
     char*   cmd;
@@ -39,33 +38,22 @@ static tDataNode menulist[]=
     {"rec","it is a rec cmd\n",NULL,NULL}
 };
 
-
+tDataNode* FindCmd(tDataNode *head,char *cmd);
 main()
-{   
-    while(1)
-    {
-        char cmd[CMD_MAX_LENS];
-        tDataNode *head=NULL;
-        printf("please enter cmd:\n");
-        scanf("%s",&cmd);
-        tDataNode *p=menulist;
-        while(p!=NULL)
-        {   
-            if(!strcmp(p->cmd,cmd))
-            {
-	        printf("%s- %s\n",p->cmd,p->dsc);
-	        if(p->handler!=NULL)
-                p->handler();
-                break;
-            } 
-
-            p=p->next;
-        }
-        if(p==NULL)
-        {   
-            printf("it is a wrong cmd\n");
-        }
-     }
+{  while(1)
+  { char* cmd[CMD_MAX_LENS]; 
+   printf("please enter the cmd:\n");
+   scanf("%s",cmd);
+   tDataNode *P;
+   tDataNode* p=FindCmd(menulist,cmd);
+   if(p!=NULL)
+   {
+       printf("%s- %s\n",p->cmd,p->dsc);
+       if(p->handler!=NULL)
+           p->handler();
+   }
+   else printf("it is a wrong number\n");
+   }
 }
 
 int showlist()
@@ -79,21 +67,14 @@ int showlist()
     return 0;
 }
 
-tDataNode *FindCmd(tDataNode *head)
+tDataNode* FindCmd(tDataNode *head, char *cmd)
 {  tDataNode *p=head;  
- while(1)
-    {
-        char cmd[CMD_MAX_LENS];
-        tDataNode *head=NULL;
-        printf("please enter cmd:\n");
-        scanf("%s",&cmd);
+  
+   
         while(p!=NULL)
         {
             if(!strcmp(p->cmd,cmd))
             {
-                printf("%s- %s\n",p->cmd,p->dsc);
-                if(p->handler!=NULL)
-                p->handler();
                 return p;
             }
 
@@ -101,12 +82,7 @@ tDataNode *FindCmd(tDataNode *head)
         }
         if(p==NULL)
         {
-            printf("it is a wrong cmd\n");
          return NULL;
         }
-     }
-
-
-
-
+    
 }
