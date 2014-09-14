@@ -53,7 +53,7 @@ main()
         printf("please enter the cmd:\n");
         scanf("%s",cmd);
         tDataNode *P;
-        tDataNode* p=Find(menulist,cmd);
+        tDataNode *p=Find(menulist,cmd);
         if(p!=NULL)
         {
             printf("%s- %s\n",p->cmd,p->dsc);
