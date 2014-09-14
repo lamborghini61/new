@@ -70,8 +70,9 @@ int help()
     return 0;
 }
 
+/*this fuction show the cmd list*/
 int showlist(tDataNode* head)
-{   /*this fuction show the cmd list*/
+{   
     tDataNode *p;
     for(p=head;p!=NULL;p=p->next)
     {
@@ -80,8 +81,9 @@ int showlist(tDataNode* head)
     return 0;
 }
 
+/*this fuction find the cmd from the list*/
 tDataNode *Find(tDataNode *head, char *cmd)
-{   /*this fuction find the cmd from the list*/
+{  
     tDataNode *p;
     for(p=head;p!=NULL;p=p->next)
     {
