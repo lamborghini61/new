@@ -1,10 +1,10 @@
 /**************************************************************************************************/
 /* Copyright (C) Sun Zenan, SSE@USTC, 2014-2015                                                   */
 /*                                                                                                */
-/*  FILE NAME             :  ftp_menu.c                                                            */
+/*  FILE NAME             :  ftp_menu.c                                                           */
 /*  PRINCIPAL AUTHOR      :  SunZenan                                                             */
-/*  SUBSYSTEM NAME        :  ftp_menu                                                              */
-/*  MODULE NAME           :  ftp_menu                                                              */
+/*  SUBSYSTEM NAME        :  ftp_menu                                                             */
+/*  MODULE NAME           :  ftp_menu                                                             */
 /*  LANGUAGE              :  C                                                                    */
 /*  TARGET ENVIRONMENT    :  any                                                                  */
 /*  DATE OF FIRST RELEASE :  2014/09/11                                                           */
