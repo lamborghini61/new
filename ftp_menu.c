@@ -23,6 +23,7 @@
 
 #define DESC_LEN         1024
 #define MAX_LENTH        50
+
 typedef struct DataNode
 {
     char*   cmd;
@@ -31,11 +32,11 @@ typedef struct DataNode
     struct  DataNode *next;
 } tDataNode;
 
+int help();
+
 int showlist(tDataNode *head);
 
 tDataNode* Find(tDataNode *head,char *cmd);
-
-int help();
 
 static tDataNode menulist[]=
 {     
@@ -71,6 +72,7 @@ int help()
 }
 
 /*this fuction show the cmd list*/
+
 int showlist(tDataNode* head)
 {   
     tDataNode *p;
@@ -82,6 +84,7 @@ int showlist(tDataNode* head)
 }
 
 /*this fuction find the cmd from the list*/
+
 tDataNode *Find(tDataNode *head, char *cmd)
 {  
     tDataNode *p;
