@@ -66,7 +66,8 @@ main()
 }
 
 int help()
-{   int a;
+{   
+    int a;
     a=showlist(&menulist[1]);
     return 0;
 }
