@@ -24,21 +24,21 @@
 #define DESC_LEN         1024
 #define MAX_LENTH        50
 
-typedef struct DataNode
+typedef struct DNode
 {
     char*   cmd;
     char*   dsc;
     int     (*handler)();
-    struct  DataNode *next;
-} tDataNode;
+    struct  DNode *next;
+} tDNode;
 
 int help();
 
-int showlist(tDataNode *head);
+int showlist(tDNode *head);
 
-tDataNode* Find(tDataNode *head,char *cmd);
+tDNode* Find(tDNode *head,char *cmd);
 
-static tDataNode menulist[]=
+static tDNode menulist[]=
 {     
     {"showlist","it is a showlist cmd\n",help,&menulist[1]},
     {"version","it is the first version\n",NULL,&menulist[2]},
@@ -53,8 +53,7 @@ main()
         char cmd[MAX_LENTH]; 
         printf("please enter the cmd:\n");
         scanf("%s",cmd);
-        tDataNode *P;
-        tDataNode *p=Find(menulist,cmd);
+        tDNode *p=Find(menulist,cmd);
         if(p!=NULL)
         {
             printf("%s- %s\n",p->cmd,p->dsc);
@@ -74,9 +73,9 @@ int help()
 
 /*this fuction show the cmd list*/
 
-int showlist(tDataNode* head)
+int showlist(tDNode* head)
 {   
-    tDataNode *p;
+    tDNode *p;
     for(p=head;p!=NULL;p=p->next)
     {
         printf("%s,%s",p->cmd,p->dsc);
@@ -86,9 +85,9 @@ int showlist(tDataNode* head)
 
 /*this fuction find the cmd from the list*/
 
-tDataNode *Find(tDataNode *head, char *cmd)
+tDNode *Find(tDNode *head, char *cmd)
 {  
-    tDataNode *p;
+    tDNode *p;
     for(p=head;p!=NULL;p=p->next)
     {
         if(!strcmp(p->cmd,cmd))
