@@ -40,7 +40,7 @@ tDNode* Find(tDNode *head,char *cmd);
 
 static tDNode menulist[]=
 {     
-    {"showlist","it is a showlist cmd\n",help,&menulist[1]},
+    {"help","it is a showlist cmd\n",help,&menulist[1]},
     {"version","it is the first version\n",NULL,&menulist[2]},
     {"send","it is a send cmd\n",NULL,&menulist[3]},
     {"rec","it is a rec cmd\n",NULL,NULL}
