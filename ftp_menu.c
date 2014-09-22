@@ -20,84 +20,90 @@
 
 #include<stdio.h>
 #include<stdlib.h>
+#include"linktable.h"
 
 #define DESC_LEN         1024
-#define MAX_LENTH        50
+#define MAX_LENTH        128
 
 typedef struct DNode
 {
-    char*   cmd;
-    char*   dsc;
-    int     (*handler)();
-    struct  DNode *next;
+    tLinkTableNode *pNext;
+    char*    cmd;
+    char*    dsc;
+    int      (*handler)();
+
 } tDNode;
 
 int help();
 
-int showlist(tDNode *head);
-
-tDNode* Find(tDNode *head,char *cmd);
-
-static tDNode menulist[]=
-{     
-    {"help","it is the menulist:\n",help,&menulist[1]},
-    {"version","it is the first version\n",NULL,&menulist[2]},
-    {"send","it is a send cmd\n",NULL,&menulist[3]},
-    {"rec","it is a rec cmd\n",NULL,NULL}
-};
-    
-main() 
+int showlist(tLinkTable* head)
 {   
-    while(1) 
+    tDNode *p = (tDNode*)GetLinkTableHead(head);
+    while(p!=NULL)
     {
-        char cmd[MAX_LENTH]; 
-        printf("please enter the cmd:\n");
-        scanf("%s",cmd);
-        tDNode *p=Find(menulist,cmd);
-        if(p!=NULL)
-        {
-            printf("%s- %s\n",p->cmd,p->dsc);
-            if(p->handler!=NULL)
-                p->handler();
-        }
-        else printf("it is a wrong number\n");
-    }
-}
-
-int help()
-{   
-    int a;
-    a=showlist(&menulist[1]);
-    return 0;
-}
-
-/*this fuction show the cmd list*/
-
-int showlist(tDNode* head)
-{   
-    tDNode *p;
-    for(p=head;p!=NULL;p=p->next)
-    {
-        printf("%s,%s",p->cmd,p->dsc);
+        printf("%s - %s\n",p->cmd,p->dsc);
+        p = (tDNode*)GetNextLinkTableNode(head,(tLinkTableNode *)p);
     }
     return 0;
 }
 
-/*this fuction find the cmd from the list*/
-
-tDNode *Find(tDNode *head, char *cmd)
-{  
-    tDNode *p;
-    for(p=head;p!=NULL;p=p->next)
+tDNode* Find(tLinkTable *head, char *cmd)
+{
+    tDNode * p = (tDNode*)GetLinkTableHead(head);
+    while(p!=NULL)
     {
         if(!strcmp(p->cmd,cmd))
         {
             return p;
         }
+        p = (tDNode*)GetNextLinkTableNode(head,(tLinkTableNode *)p);
     }
-    if(p==NULL)
+    return NULL;
+}
+
+
+static tDNode menulist[]=
+{     
+    {NULL,"help","it is the menulist:\n",help},
+    {NULL,"version","it is the first version\n",NULL},
+    {NULL,"send","it is the send cmd\n",NULL},
+    {NULL,"recv","it is the recv cmd\n",NULL}
+
+};
+
+tLinkTable *head=NULL;
+main() 
+{   
+    head = CreateLinkTable();
+    AddLinkTableNode(head,(tLinkTableNode*) &menulist[0]);
+    AddLinkTableNode(head,(tLinkTableNode*) &menulist[1]);
+    AddLinkTableNode(head,(tLinkTableNode*) &menulist[2]);
+    AddLinkTableNode(head,(tLinkTableNode*) &menulist[3]);
+    while(1) 
     {
-        return NULL;
+        char cmd[MAX_LENTH]; 
+        printf("please enter the cmd:\n");
+        scanf("%s",cmd);
+        tDNode *p = Find(head,cmd);
+        if(p==NULL)
+        {   
+            printf("it is a wrong cmd\n");
+            continue;
+        }
+        printf("%s- %s\n",p->cmd,p->dsc);
+        if(p->handler!=NULL)
+        { 
+            p->handler();
+        }
     }
 }
+
+int help()
+{
+    showlist(head);
+    return 0;
+}
+
+   
+
 
